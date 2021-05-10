@@ -145,7 +145,7 @@ static CXProvider* sharedProvider;
         _incomingCallNotification = nil;
     }
     if (_startCallNotification != nil) {
-        [_channel invokeMethod:kDidDisplayIncomingCall arguments:_startCallNotification];
+        [_channel invokeMethod:kHandleStartCallNotification arguments:_startCallNotification];
         _startCallNotification = nil;
     }
     result(nil);
