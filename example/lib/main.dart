@@ -73,7 +73,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<void> _didDisplayIncomingCall(String error, String uuid, String handle,
-      String localizedCallerName, bool fromPushKit) async {
+      String localizedCallerName, bool hasVideo, bool fromPushKit) async {
     // You will get this event after RNCallKeep finishes showing incoming call UI
     // You can check if there was an error while displaying
   }
