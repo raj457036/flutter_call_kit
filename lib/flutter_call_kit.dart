@@ -36,7 +36,7 @@ typedef Future<dynamic> OnDeactivateAudioSession();
 /// you might want to do following things when receiving this event:
 /// Start playing ringback if it is an outgoing call
 typedef Future<dynamic> OnIncomingCall(String error, String uuid, String handle,
-    String localizedCallerName, bool hasVideo, bool fromPushKit);
+    String localizedCallerName,String callerAvatar, bool hasVideo, bool fromPushKit);
 
 /// A call was muted by the system or the user:
 ///
@@ -219,7 +219,7 @@ class FlutterCallKit {
         }
         Map map = call.arguments.cast<String, dynamic>();
         return _didDisplayIncomingCall!(map["error"], map["callUUID"],
-            map["handle"], map["localizedCallerName"], map["hasVideo"], map["fromPushKit"]);
+            map["handle"], map["localizedCallerName"], map["callerAvatar"],  map["hasVideo"], map["fromPushKit"]);
       case "didPerformSetMutedCallAction":
         if (_didPerformSetMutedCallAction == null) {
           return null;
