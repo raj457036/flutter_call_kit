@@ -258,7 +258,7 @@ class FlutterCallKit {
   Future<void> displayIncomingCall(
       String uuid, String handle, String localizedCallerName,
       {HandleType handleType = HandleType.phoneNumber,
-      bool video = false}) async {
+      bool video = false, String? callerAvatar}) async {
     if (!Platform.isIOS) {
       return;
     }
@@ -268,6 +268,7 @@ class FlutterCallKit {
       "localizedCallerName": localizedCallerName,
       "handleType": handleTypeToString(handleType),
       "video": video,
+      "callerAvatar": callerAvatar,
     });
   }
 
