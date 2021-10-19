@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:uuid/uuid.dart';
-import 'package:flutter_call_kit/flutter_call_kit.dart';
+import 'package:c2c_call_kit/flutter_call_kit.dart';
 
 void main() => runApp(MyApp());
 
@@ -72,8 +72,8 @@ class _MyAppState extends State<MyApp> {
     // - Start playing ringback if it is an outgoing call
   }
 
-  Future<void> _didDisplayIncomingCall(String error, String uuid, String handle,
-      String localizedCallerName, bool hasVideo, bool fromPushKit) async {
+  Future<void> _didDisplayIncomingCall(String error, String mettingId, String uuid, String handle,
+      String localizedCallerName, String callerAvatar, bool hasVideo, bool fromPushKit) async {
     // You will get this event after RNCallKeep finishes showing incoming call UI
     // You can check if there was an error while displaying
   }

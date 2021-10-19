@@ -1,3 +1,7 @@
+## 0.1.0
+
+* add mettingId
+
 ## 0.0.3
 
 * fix event handlers

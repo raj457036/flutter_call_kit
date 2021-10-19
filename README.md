@@ -20,6 +20,9 @@ For more information about **CallKit** on iOS, please see [Official CallKit Fram
 ## Usage
 Add `flutter_call_kit` as a [dependency in your pubspec.yaml file](https://flutter.io/using-packages/).
 
+```sh
+flutter pub publish
+```
 
 ## Example
 
