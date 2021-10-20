@@ -1,3 +1,11 @@
+## 0.1.2
+
+* fix build ios
+
+## 0.1.1
+
+* fix build ios
+
 ## 0.1.0
 
 * add mettingId
