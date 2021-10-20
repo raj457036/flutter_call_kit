@@ -1,6 +1,6 @@
 name: c2c_call_kit
 description: Flutter iOS CallKit framework - Currently iOS >= 10.0 only
-version: 0.1.2
+version: 0.1.2+1
 homepage: https://github.com/beheobong/flutter_call_kit
 
 environment:

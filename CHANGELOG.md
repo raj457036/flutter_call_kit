@@ -1,5 +1,9 @@
 ## 0.1.2
 
+* fix value callBack _didDisplayIncomingCall 
+
+## 0.1.2
+
 * fix build ios
 
 ## 0.1.1
