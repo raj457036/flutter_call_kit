@@ -18,7 +18,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_call_kit:
+  c2c_call_kit:
     path: ../
 
 # For information on the generic Dart part of this file, see the
@@ -62,3 +62,4 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+  

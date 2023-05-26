@@ -35,8 +35,15 @@ typedef Future<dynamic> OnDeactivateAudioSession();
 ///
 /// you might want to do following things when receiving this event:
 /// Start playing ringback if it is an outgoing call
-typedef Future<dynamic> OnIncomingCall(String error, String uuid, String handle,
-    String localizedCallerName, bool fromPushKit);
+typedef Future<dynamic> OnIncomingCall(
+    String error,
+    String uuid,
+    String mettingId,
+    String handle,
+    String localizedCallerName,
+    String callerAvatar,
+    bool hasVideo,
+    bool fromPushKit);
 
 /// A call was muted by the system or the user:
 ///
@@ -218,8 +225,15 @@ class FlutterCallKit {
           return null;
         }
         Map map = call.arguments.cast<String, dynamic>();
-        return _didDisplayIncomingCall!(map["error"], map["callUUID"],
-            map["handle"], map["localizedCallerName"], map["fromPushKit"]);
+        return _didDisplayIncomingCall!(
+            map["error"],
+            map["callUUID"],
+            map["mettingId"],
+            map["handle"],
+            map["localizedCallerName"],
+            map["callerAvatar"],
+            map["hasVideo"],
+            map["fromPushKit"]);
       case "didPerformSetMutedCallAction":
         if (_didPerformSetMutedCallAction == null) {
           return null;
@@ -256,18 +270,21 @@ class FlutterCallKit {
   /// A [handleType] which describes this [handle] see [HandleType]
   /// tell the system whether this is a [video] call
   Future<void> displayIncomingCall(
-      String uuid, String handle, String localizedCallerName,
+      String uuid, String handle, String mettingId, String localizedCallerName,
       {HandleType handleType = HandleType.phoneNumber,
-      bool video = false}) async {
+      bool video = false,
+      String? callerAvatar}) async {
     if (!Platform.isIOS) {
       return;
     }
     await _channel.invokeMethod<void>('displayIncomingCall', {
       "uuid": uuid,
+      "mettingId": mettingId,
       "handle": handle,
       "localizedCallerName": localizedCallerName,
       "handleType": handleTypeToString(handleType),
       "video": video,
+      "callerAvatar": callerAvatar,
     });
   }
 
@@ -373,6 +390,16 @@ class FlutterCallKit {
       return null;
     }
     return await _channel.invokeMethod<void>('checkIfBusy') as bool;
+  }
+
+  /// Checks if there are any active calls on the device and returns a future with a boolean value
+  /// (`true` if there're active calls, `false` otherwise).
+  ///
+  Future<int?> checkIfBusy1() async {
+    if (!Platform.isIOS) {
+      return null;
+    }
+    return await _channel.invokeMethod<void>('checkIfBusy') as int;
   }
 
   /// Checks if the device speaker is on and returns a promise with a boolean value (`true` if speaker is on, `false` otherwise).

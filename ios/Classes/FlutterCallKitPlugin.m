@@ -155,11 +155,13 @@ static CXProvider* sharedProvider;
 - (void)displayIncomingCall:(NSDictionary *)arguments result:(FlutterResult)result
 {
     NSString* uuidString = arguments[@"uuid"];
+    NSString* mettingId = arguments[@"mettingId"];
     NSString* handle = arguments[@"handle"];
     NSString* handleType = arguments[@"handleType"];
     NSNumber* video = arguments[@"video"];
     NSString* localizedCallerName = arguments[@"localizedCallerName"];
-    [FlutterCallKitPlugin reportNewIncomingCall:uuidString handle:handle handleType:handleType hasVideo:[video boolValue] localizedCallerName:localizedCallerName fromPushKit:NO];
+    NSString* callerAvatar = arguments[@"callerAvatar"];
+    [FlutterCallKitPlugin reportNewIncomingCall:uuidString mettingId:mettingId handle:handle handleType:handleType hasVideo:[video boolValue] localizedCallerName:localizedCallerName callerAvatar:callerAvatar fromPushKit:NO];
     result(nil);
 }
 
@@ -497,10 +499,12 @@ continueUserActivity:(NSUserActivity *)userActivity
 }
 
 + (void)reportNewIncomingCall:(NSString *)uuidString
+                    mettingId:(NSString *)mettingId
                        handle:(NSString *)handle
                    handleType:(NSString *)handleType
                      hasVideo:(BOOL)hasVideo
           localizedCallerName:(NSString * _Nullable)localizedCallerName
+                 callerAvatar:(NSString * _Nullable)callerAvatar
                   fromPushKit:(BOOL)fromPushKit
 {
 #ifdef DEBUG
@@ -522,7 +526,7 @@ continueUserActivity:(NSUserActivity *)userActivity
     [sharedProvider reportNewIncomingCallWithUUID:uuid update:callUpdate completion:^(NSError * _Nullable error) {
         [[NSNotificationCenter defaultCenter] postNotificationName:kIncomingCallNotification
                                                             object:self
-                                                          userInfo:@{ @"error": error ? error.localizedDescription : [NSNull null], @"callUUID": uuidString, @"handle": handle, @"localizedCallerName": localizedCallerName, @"fromPushKit": @(fromPushKit)}];
+                                                          userInfo:@{ @"error": error ? error.localizedDescription : [NSNull null], @"callUUID": uuidString,  @"mettingId": mettingId, @"handle": handle, @"localizedCallerName": localizedCallerName, @"callerAvatar": callerAvatar, @"hasVideo": @(hasVideo), @"fromPushKit": @(fromPushKit)}];
     }];
 }
 
